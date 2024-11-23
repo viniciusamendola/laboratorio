@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        table {
+            box-shadow: 0 0px 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        input, button{
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4">
+                <input type="text" id="visor">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="limparVisor()">C</button></td>
+            <td colspan="2"><button onclick="apagarUltimo()">&larr;</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="adicionarAoVisor('(')">(</button></td>
+            <td><button onclick="adicionarAoVisor(')')">)</button></td>
+            <td><button onclick="calcularPorcentagem()">%</button></td>
+            <td><button onclick="calcularRaizQuadrada()">&radic;</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="adicionarAoVisor('7')">7</button></td>
+            <td><button onclick="adicionarAoVisor('8')">8</button></td>
+            <td><button onclick="adicionarAoVisor('9')">9</button></td>
+            <td><button onclick="adicionarAoVisor('/')">/</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="adicionarAoVisor('4')">4</button></td>
+            <td><button onclick="adicionarAoVisor('5')">5</button></td>
+            <td><button onclick="adicionarAoVisor('6')">6</button></td>
+            <td><button onclick="adicionarAoVisor('*')">*</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="adicionarAoVisor('1')">1</button></td>
+            <td><button onclick="adicionarAoVisor('2')">2</button></td>
+            <td><button onclick="adicionarAoVisor('3')">3</button></td>
+            <td><button onclick="adicionarAoVisor('-')">-</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="adicionarAoVisor('0')">0</button></td>
+            <td><button onclick="adicionarAoVisor('.')">.</button></td>
+            <td><button onclick="calcularResultado()">=</button></td>
+            <td><button onclick="adicionarAoVisor('+')">+</button></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a href="http://127.0.0.1:5500/index.html"><button>Voltar</button></a>
+            </td>     
+        </tr>
+    </table>
+    
+    <script>
+        function adicionarAoVisor(valor){
+            document.getElementById('visor').value += valor;
+        }
+        function calcularResultado(){
+            let expressao = document.getElementById('visor').value;
+            let resultado = eval(expressao);
+            document.getElementById('visor').value = resultado;
+        }
+        function limparVisor(){
+            document.getElementById('visor').value = '';
+
+        }
+        function apagarUltimo(){
+            let valorAtual = document.getElementById('visor').value;
+            document.getElementById('visor').value = valorAtual.slice(0,-1);
+        }
+        function calcularPorcentagem(){
+            let valorAtual = document.getElementById('visor').value;
+            if(valorAtual){
+                let porcentagem = parseFloat(valorAtual)/100;
+                document.getElementById('visor').value = porcentagem;
+            }
+        }
+        function calcularRaizQuadrada(){
+            let valorAtual = document.getElementById('visor').value;
+            if(valorAtual){
+                let raiz = Math.sqrt(parseFloat(valorAtual));
+                document.getElementById('visor').value = raiz;
+            }
+        }
+    </script>
+</body>
+</html>

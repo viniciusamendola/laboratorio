@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 2px;
+        }
+        body{
+            width: 100%;
+            display: flex;
+            justify-content: center;    
+            text-align: center;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td{
+            border: 1px solid #000;
+            padding: 3px;
+        }
+        .header{
+            background-color: #eee;
+            padding: 15px;
+            font-family: 'Arial';
+
+        }
+        .container{
+            border-radius: 10px;
+            background-color: #fafafa;
+            font-family: 'Arial';
+        }
+        .form{
+            padding: 10px;
+        }
+        button{
+            width: 100%;
+            font-size: 15px;
+            border-radius: 10px;
+            padding: 5px;
+            background-color: green;
+            color: white;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Cadastro de Produtos</h2>
+        </div>
+        <form>
+            <div>
+                <label>Nome do Produto:</label>
+                <input type="text" id="nomeproduto" placeholder="Digite o nome do produto...">
+            </div>
+            <div>
+                <label>Preço:</label>
+                <input type="number" id="preco" placeholder="Digite o valor do produto...">
+            </div>
+            <div>
+                <label>Quantidade:</label>
+                <input type="number" id="quantidade" placeholder="Digite a quantidade do produto...">
+            </div>
+            <button type="button" onclick="adicionarProdutos()">Adicionar Produto</button>
+        </form>
+
+        <table>
+            <th>Nome do Produto</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <tbody id="tabelacorpo"></tbody>
+        </table>
+        
+    </div>
+    <script>
+        function adicionarProdutos(){
+            let nomeProduto = document.getElementById('nomeproduto').value;
+            let preco = document.getElementById('preco').value;
+            let quantidade = document.getElementById('quantidade').value;
+            if(nomeProduto && preco && quantidade){
+                let novalinha = document.createElement('tr');
+                let colunanome = document.createElement('td');
+                colunanome.textContent = nomeProduto;
+                let colunapreco = document.createElement('td');
+                colunapreco.textContent = preco;
+                let colunaquantidade = document.createElement('td');
+                colunaquantidade.textContent = quantidade;
+                let colunaAcao = document.createElement('td');
+                let botaoExcluirLinha = document.createElement('button');
+                botaoExcluirLinha.addEventListener("click", function(){
+                    excluirLinha(novalinha);
+                });
+                botaoExcluirLinha.textContent = 'Excluir';
+                botaoExcluirLinha.style.backgroundColor = 'red';
+                botaoExcluirLinha.style.color = 'white';
+                colunaAcao.appendChild(botaoExcluirLinha);
+                novalinha.appendChild(colunanome);
+                novalinha.appendChild(colunapreco);
+                novalinha.appendChild(colunaquantidade);
+                novalinha.appendChild(colunaAcao);
+                document.getElementById('tabelacorpo').appendChild(novalinha);
+                document.getElementById('nomeproduto').value = '';
+                document.getElementById('preco').value = '';
+                document.getElementById('quantidade').value = '';
+            }else{
+                alert("Por favor preencha todos os campos...")
+            }
+        }
+        function excluirLinha(linha){
+            let confirmacao = confirm("Deseja realmente excluir essa linha?");
+            if(confirmacao){
+                linha.remove();
+            }
+        }
+    </script>
+</body>
+</html>

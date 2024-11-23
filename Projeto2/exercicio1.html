@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 2px;
+        }
+        body{
+            width: 100%;
+            display: flex;
+            justify-content: center;    
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table,th,td{
+            border: 1px solid black;
+            padding: 3px;
+        }
+        .header{
+            background-color: #eee;
+            padding: 15px;
+            font-family: 'Arial';
+
+        }
+        .container{
+            border-radius: 10px;
+            background-color: #fafafa;
+            font-family: 'Arial';
+        }
+        .form{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Formulário de Cadastro de Livros</h2>
+        </div>
+        <form id="form" class="form">
+            <div class="form-control">
+                <label>Nome do Livro</label>
+                <input type="text" id="nomeLivro" placeholder="Digite o nome do livro...">
+             </div>
+            <div>
+                <label>Nome do Autor</label>
+                <input type="text" id="nomeAutor" placeholder="Digite o nome do autor...">
+             </div>
+            <div> 
+                <label>Ano da Publicação</label>
+                <input type="date" id="anoPublicacao" placeholder="Digite o ano da publicação...">
+          
+                <button type="button" onclick="cadastrarLivros()">Cadastrar</button>
+            </div> 
+        </form>
+        <!-- <h2>Adicionar Livros</h2>
+        <label>Nome do Livro</label>
+        <input type="text" id="nomeLivro" placeholder="Digite o nome do livro...">
+        <label>Nome do Autor</label>
+        <input type="text" id="nomeAutor" placeholder="Digite o nome do autor...">
+        <label>Ano da Publicação</label>
+        <input type="date" id="anoPublicacao" placeholder="Digite o ano da publicação...">
+        <button type="button" onclick="cadastrarLivros()">Cadastrar</button>
+         -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Livro</th>
+                    <th>Nome do Autor</th>
+                    <th>Ano da Publicação</th>
+                </tr>
+            </thead>
+            <tbody id="tabelacorpo">
+
+            </tbody>
+        </table>
+    <!-- </div> -->
+    <script>
+        function cadastrarLivros(){
+            let nomeLivro = document.getElementById('nomeLivro').value;
+            let nomeAutor = document.getElementById('nomeAutor').value;
+            let anoPublicacao = document.getElementById('anoPublicacao').value;
+            if(nomeLivro && nomeAutor && anoPublicacao){
+            let novaLinha = document.createElement('tr');
+            let colunanomelivro = document.createElement('td');
+            colunanomelivro.textContent = nomeLivro;
+            let colunanomeautor = document.createElement('td');
+            colunanomeautor.textContent = nomeAutor;
+            let colunaanopublicacao = document.createElement('td');
+            colunaanopublicacao.textContent = anoPublicacao.split("-").reverse().join("/");
+            let colunaAcao = document.createElement('td');
+            let botaoExcluirLinha = document.createElement('button');
+            botaoExcluirLinha.addEventListener("click", function(){
+                excluirLinha(novaLinha);
+            });
+            botaoExcluirLinha.textContent = "Excluir";
+            botaoExcluirLinha.style.backgroundColor = "red";
+            botaoExcluirLinha.style.color = "white";
+            colunaAcao.appendChild(botaoExcluirLinha);
+            novaLinha.appendChild(colunanomelivro);
+            novaLinha.appendChild(colunanomeautor);
+            novaLinha.appendChild(colunaanopublicacao);
+            novaLinha.appendChild(colunaAcao);
+            document.getElementById('tabelacorpo').appendChild(novaLinha);
+            document.getElementById('nomeLivro').value = '';
+            document.getElementById('nomeAutor').value = '';
+            document.getElementById('anoPublicacao').value = '';
+        }else{
+            alert("Por favor preencha todos os campos !")
+        }
+
+        }
+        function excluirLinha(linha){
+            let confirmacao = confirm("Deseja realmente excluir a linha?");
+            if(confirmacao){
+                linha.remove();
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+           box-sizing: border-box;
+       }
+       table{
+           box-shadow: 0 0px 5px rgba(0,0,0,0.5);
+           padding: 10px;
+           border-radius: 5px;
+       }
+       input, button{
+           padding: 10px;
+           width: 100%;
+       }
+       h1{
+           font-size: 25px;
+           padding: 5px;
+       }
+   </style>
+</head>
+<body>
+    <table>
+        <h1>Calculadora de metros quadrado</h1>
+        <tr>
+            <td>
+                <input type="text" id="visor">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" id="numero" placeholder="Número">
+            </td>
+        </tr>
+        <tr>
+            <td><button onclick="calcularMetros()">Calcular Metros Quadrados</button></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="http://127.0.0.1:5500/index.html"><button>Voltar</button></a>
+            </td>
+        </tr>
+    </table>
+    <script>
+        function calcularMetros(){
+            let valorAtual = document.getElementById('numero').value;
+            valorTotal = valorAtual*valorAtual;
+            document.getElementById('visor').value = valorTotal;
+        }
+    </script>
+</body>
+</html>

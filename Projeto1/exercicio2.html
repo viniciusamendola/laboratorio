@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        table{
+            box-shadow: 0 0px 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        input, button{
+            padding: 10px;
+            width: 100%;
+        }
+        h1{
+            font-size: 25px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <h1>Calculadora de Média</h1>
+        <tr>
+            <td colspan="3">
+                <input type="text" id="visor">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="valor1" placeholder="Valor 1">
+            </td>
+            <td>
+                <input type="text" id="valor2" placeholder="Valor 2">
+            </td>
+            <td>
+                <input type="text" id="valor3" placeholder="Valor 3">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><button onclick="calcularMedia()">Calcular Média Simples</button></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a href="http://127.0.0.1:5500/index.html"><button>Voltar</button></a>
+            </td>     
+        </tr>
+    </table>
+    <script>
+        function calcularMedia(){
+            let valor1 = parseFloat(document.getElementById('valor1').value);
+            let valor2 = parseFloat(document.getElementById('valor2').value);
+            let valor3 = parseFloat(document.getElementById('valor3').value);
+            let valorTotal = (valor1+valor2+valor3)/3;
+            document.getElementById('visor').value = valorTotal;
+        }
+    </script>
+</body>
+
+</html>

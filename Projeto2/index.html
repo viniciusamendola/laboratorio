@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+
+        }
+        table,th,td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h2>Adicionar Informações à Tabela</h2>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="email" id="email" placeholder="E-mail">
+    <input type="text" id="whatsapp" placeholder="Whatsapp">
+    <input type="date" id="data" placeholder="Data">
+    <button type="button" onclick="agendar()">Agendar</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Whatsapp</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody id="tabelacorpo">
+
+        </tbody>
+    </table>
+    <script>
+        function agendar(){
+            let nome = document.getElementById('nome').value;
+            let email = document.getElementById('email').value;
+            let whatsapp = document.getElementById('whatsapp').value;
+            let data = document.getElementById('data').value;
+            if(nome && email && whatsapp){
+            let novalinha = document.createElement('tr');
+            let colunanome = document.createElement('td');
+            colunanome.textContent = nome;
+            let colunaemail = document.createElement('td');
+            colunaemail.textContent = email;
+            let colunawhatsapp = document.createElement('td');
+            colunawhatsapp.textContent = whatsapp;
+            let colunadata = document.createElement('td');
+            colunadata.textContent = data.split("-").reverse().join("/");
+            let colunaAcao = document.createElement('td');
+            let botaoExcluirLinha = document.createElement("button");
+            botaoExcluirLinha.addEventListener("click", function(){
+                excluirLinha(novalinha);
+            });
+            botaoExcluirLinha.textContent = "Excluir";
+            botaoExcluirLinha.style.backgroundColor = "red";
+            botaoExcluirLinha.style.color = "white";
+            colunaAcao.appendChild(botaoExcluirLinha);
+            novalinha.appendChild(colunanome);
+            novalinha.appendChild(colunaemail);
+            novalinha.appendChild(colunawhatsapp);
+            novalinha.appendChild(colunadata);
+            novalinha.appendChild(colunaAcao);
+            document.getElementById('tabelacorpo').appendChild(novalinha);
+            document.getElementById('nome').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('data').value = '';
+        }else{
+            alert("Por favor, preencha todos os campos.")
+        }
+        }
+        function excluirLinha(linha){
+            let confirmacao = confirm("Deseja realmente excluir a linha?");
+            if(confirmacao){
+                linha.remove();
+            }
+        }
+    </script>
+</body>
+</html>

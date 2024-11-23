@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário com Tabela</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Adicionar Informações à Tabela</h2>
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" placeholder="Digite o nome" />
+    <br /><br />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Digite o email" />
+    <br /><br />
+
+    <label for="telefone">Telefone:</label>
+    <input type="tel" id="telefone" placeholder="Digite o telefone" />
+    <br /><br />
+
+    <label for="data">Data:</label>
+    <input type="date" id="data" placeholder="Escolha uma data" />
+    <br /><br />
+
+    <button onclick="adicionarLinha()">Adicionar</button>
+
+    <h2>Informações Adicionadas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Data</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-corpo"></tbody>
+    </table>
+
+    <script>
+        let alunos = [
+            {
+                nome:'Leonardo', 
+                id:1
+            },
+            {
+                nome:'Vinicius',
+                id:2
+            }
+        ];
+        let alunos2 = JSON.stringify(alunos);
+        console.log(alunos2);
+        console.log(JSON.parse(alunos2));
+
+        let numeros = [1,2,3,4,5,6,7,8,9,10];
+        let numerosfiltrados = numeros.filter(numero => numero !== 5);
+        console.log(numerosfiltrados);
+
+        function carregarDados(){
+            let dados = JSON.parse(localStorage.getItem("dadosTabela")) || [];
+            dados.forEach(function(item){
+                adicionarLinhaTabela(item.id, item.nome, item.email, item.telefone, item.data, false);
+            });
+        }
+        function salvarDados(id, nome, email, telefone, data){
+            let dados = JSON.parse(localStorage.getItem("dadosTabela")) || [];
+            dados.push({id, nome, email, telefone, data});
+            localStorage.setItem('dadosTabela', JSON.stringify(dados));
+        }
+        function gerarId(){
+            let dados = JSON.parse(localStorage.getItem("dadosTabela")) || [];
+            return dados.length > 0 ? dados[dados.length - 1].id + 1 : 1;
+        }
+        function adicionarLinha(){
+            let nome = document.getElementById('nome').value;
+            let email = document.getElementById('email').value;
+            let telefone = document.getElementById('telefone').value;
+            let data = document.getElementById('data').value;
+            if(nome && email && telefone && data){
+                let id = gerarId();
+                adicionarLinhaTabela(id, nome, email, telefone, data, true);
+                document.getElementById('nome').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('telefone').value = '';
+                document.getElementById('data').value = '';
+            }else{
+                window.alert("Por Favor preencha todos os campos!");
+            }
+        }
+        function adicionarLinhaTabela(id, nome, email, telefone, data, salvaNoLocalStorage){
+            let novalinha = document.createElement('tr');
+            let celulaid = document.createElement('td');
+            celulaid.textContent = id;
+            let celulanome = document.createElement('td');
+            celulanome.textContent = nome;
+            let celulaemail = document.createElement('td');
+            celulaemail.textContent = email;
+            let celulatelefone = document.createElement('td');
+            celulatelefone.textContent = telefone;
+            let celuladata = document.createElement('td');
+            celuladata.textContent = data;
+            let celulaacao = document.createElement('td');
+            let botaoExcluirLinha = document.createElement('button');
+            botaoExcluirLinha.textContent = 'Excluir';
+            botaoExcluirLinha.style.backgroundColor = 'red';
+            botaoExcluirLinha.style.color = 'white';
+            botaoExcluirLinha.addEventListener("click", function(){
+                excluirLinha(id, novalinha);
+            });
+            celulaacao.appendChild(botaoExcluirLinha);
+            novalinha.appendChild(celulaid);
+            novalinha.appendChild(celulanome);
+            novalinha.appendChild(celulaemail);
+            novalinha.appendChild(celulatelefone);
+            novalinha.appendChild(celuladata);
+            novalinha.appendChild(celulaacao);
+            document.getElementById('tabela-corpo').appendChild(novalinha);
+            if(salvaNoLocalStorage){
+                salvarDados(id, nome, email, telefone, data);
+            }
+        }
+        function excluirLinha(id, linha){
+            let confirmacao = confirm("Deseja realmente excluir essa linha?");
+            if(confirmacao){
+                linha.remove();
+                let dados = JSON.parse(localStorage.getItem('dadosTabela')) || [];
+                dados = dados.filter((item)=> item.id !== id);
+                localStorage.setItem("dadosTabela", JSON.stringify(dados));
+            }
+        }
+        carregarDados();
+    </script>
+  </body>
+</html>
